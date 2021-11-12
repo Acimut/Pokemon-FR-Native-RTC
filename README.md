@@ -27,48 +27,96 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
 - Para configurar el reloj de pared, se usa el special 0x9A. Este recibe como parámetro la variable 0x8004, si es 0 usa la paleta para la chica, y 1 para el chico. Combinar con checkgender y asignar una flag para comprobar si ya se ha configurado antes.
 - Para ver ver el reloj
 - Un ejemplo de cómo quedaría el script en XSE:
-        `#dynamic 0x800000`
-        `#org @main`
-        `lockall`
-        `checkgender`
-        `copyvar LASTRESULT 0x8004`
-        `checkflag 0x35C`
-        `if 0x1 goto @snippet2`
-        `msgbox @string1 MSG_KEEPOPEN`
-        `call @snippet3`
-        `pause 0x1E`
-        `setflag 0x35C`
-        `call @snippet4`
-        `sound 0x9`
-        `releaseall`
-        `end`
-        `'---------------`
-        `#org @snippet2`
-        `fadescreen 0x1`
-        `special 0x9A`
-        `waitstate`
-        `releaseall`
-        `end`
-        `'---------------`
-        `#org @snippet3`
-        `fadescreen 0x1`
-        `special 0x9A`
-        `waitstate`
-        `return`
-        `'---------------`
-        `#org @snippet4`
-        `msgbox @string2 MSG_KEEPOPEN`
-        `closeonkeypress`
-        `return`
-        `'---------------`
-        `#org @string1`
-        `= El reloj está detenido[.]\pHora de configurarlo e iniciarlo.`
-        `'---------------`
-        `#org @string2`
-        `= [player]: ¡Ahora el reloj está funcionando\ncorrectamente!`
+
+
+`#dynamic 0x800000`
+
+`#org @main`
+
+`lockall`
+
+`checkgender`
+
+`copyvar LASTRESULT 0x8004`
+
+`checkflag 0x35C`
+
+`if 0x1 goto @snippet2`
+
+`msgbox @string1 MSG_KEEPOPEN`
+
+`call @snippet3`
+
+`pause 0x1E`
+
+`setflag 0x35C`
+
+`call @snippet4`
+
+`sound 0x9`
+
+`releaseall`
+
+`end`
+
+
+`'---------------`
+
+`#org @snippet2`
+
+`fadescreen 0x1`
+
+`special 0x9A`
+
+`waitstate`
+
+`releaseall`
+
+`end`
+
+
+`'---------------`
+
+`#org @snippet3`
+
+`fadescreen 0x1`
+
+`special 0x9A`
+
+`waitstate`
+
+`return`
+
+
+`'---------------`
+
+`#org @snippet4`
+
+`msgbox @string2 MSG_KEEPOPEN`
+
+`closeonkeypress`
+
+`return`
+
+
+`'---------------`
+
+`#org @string1`
+
+`= El reloj está detenido[.]\pHora de configurarlo e iniciarlo.`
+
+
+`'---------------`
+
+`#org @string2`
+
+`= [player]: ¡Ahora el reloj está funcionando\ncorrectamente!`
+
+
 - Archivos dentro de la carpeta include fueron tomados de pokefirered.
 
 ***Capturas:***
+
 ![Screenshot1](gif/f1.gif)
 ![Screenshot2](gif/f2.gif)
 ![Screenshot3](gif/m1.gif)
