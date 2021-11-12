@@ -1,0 +1,11 @@
+#include "include/global.h"
+#include "include/time_events.h"
+#include "include/event_data.h"
+#include "include/field_weather.h"
+#include "include/pokemon.h"
+#include "include/random.h"
+#include "include/overworld.h"
+#include "include/rtc.h"
+#include "include/script.h"
+#include "include/task.h"
+
