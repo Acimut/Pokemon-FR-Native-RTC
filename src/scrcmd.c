@@ -63,6 +63,11 @@
 //    1, 0, 1, // !=
 //};
 
+/**
+ * XSE
+ * 0x2C
+ * cmd2c
+*/
 //0806a9d4 g 00000004 ScrCmd_initclock      d5 a9 06 08 -> 0x0815FA64
 bool8 ScrCmd_initclock(struct ScriptContext * ctx)  // RTC code /hook /repoint  
 {
@@ -75,6 +80,11 @@ bool8 ScrCmd_initclock(struct ScriptContext * ctx)  // RTC code /hook /repoint
     return FALSE;
 }
 
+/**
+ * XSE
+ * 0x2D
+ * checkdailyflags
+*/
 //0806a9d8 g 00000004 ScrCmd_dodailyevents  d9 a9 06 08 -> 0x0815FA68
 bool8 ScrCmd_dotimebasedevents(struct ScriptContext * ctx)  // RTC code /hook /repoint /cambio de nombre desde: ScrCmd_dodailyevents
 {
@@ -84,6 +94,11 @@ bool8 ScrCmd_dotimebasedevents(struct ScriptContext * ctx)  // RTC code /hook /r
     return FALSE;
 }
 
+/**
+ * XSE
+ * 0x2E
+ * resetvars
+*/
 //0806a9dc g 00000020 ScrCmd_gettime        dd a9 06 08 -> 0x0815FA6C
 bool8 ScrCmd_gettime(struct ScriptContext * ctx)    // RTC code /hook /repoint
 {

@@ -56,7 +56,7 @@ extern void ScheduleHideSlashSprite(u8 spriteId);
 #define KEYSTROKE_RESET_RTC (B_BUTTON | SELECT_BUTTON | DPAD_LEFT)  // RTC code
 #define KEYSTROKE_BERRY_FIX (B_BUTTON | SELECT_BUTTON)
 
-//08078fc4 l 000000dc SetTitleScreenScene_Run
+//08078fc4 l 000000dc SetTitleScreenScene_Run   //RF 08078ffc
 void SetTitleScreenScene_Run_new(s16 * data) // RTC code repuntear para hacer hook a esta función
 {
     switch (data[1])

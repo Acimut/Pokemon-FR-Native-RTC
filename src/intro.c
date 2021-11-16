@@ -24,7 +24,8 @@ extern bool8 RunCopyrightScreen(void);
 // 0x080004d0 4809 ldr r0, [$080004f8] (=$080ec821)
 // El hook se realiza aquí: 0x080004f8
 
-//080ec820 g 00000044 c2_copyright_1
+//080ec820 g 00000044 c2_copyright_1    fire red
+//080ecb2c g 00000044 c2_copyright_1    rojo fuego
 void c2_copyright_1_Hook(void)   // RTC code repuntear esta función 
 {
     if (!RunCopyrightScreen())
