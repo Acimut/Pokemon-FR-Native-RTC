@@ -20,7 +20,7 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
 
 - Dentro de la carpeta raíz del proyecto, poner una rom con extensión de archivo .gba
     - con nombre BPRE si usa Fire Red
-    - con nombre BPRS si usa Rojo Fuego `no implementado aún`
+    - con nombre BPRS si usa Rojo Fuego
 
 - Compilan ejecutando make. Se genera una nueva carpeta llamada “build” y adentro encontrará un archivo `rom_bpre.gba` (`rom_bprs.gba` en caso de Rojo Fuego) que tendrá el código compilado. Pueden abrir el archivo `offset.txt` para revisar los offset donde se ha insertado el código compilado.
 
