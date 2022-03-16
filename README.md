@@ -7,7 +7,7 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
 
 ### Instrucciones:
 
-- DevkitARM y ARMIPS son necesarios (versiones más recientes).
+- DevkitARM y ARMIPS son necesarios (versiones recientes).
 
 - Para compilar es necesario tener preproc.exe y gbagfx.exe dentro alguna ruta de la variable PATH
 
@@ -15,7 +15,7 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
         
         ROM_CODE ?= BPRE
         OFFSET ?= 0x08730000
-    - Cambiamos 730000 por un offset alienado con suficiente espacio libre (cerca de `0x6000` bytes). Se puede insertar en espacio expandido de la rom, cambiando el 0x08 por 0x09 al inicio del offset.
+    - Cambiamos 730000 por un offset alienado con suficiente espacio libre (cerca de `0xA000` bytes). Se puede insertar en espacio expandido de la rom, cambiando el 0x08 por 0x09 al inicio del offset.
     - Cambiamos BPRE por BPRS si vas a compilar en una rom Rojo Fuego española.
 
 - Dentro de la carpeta raíz del proyecto, poner una rom con extensión de archivo .gba
@@ -33,22 +33,22 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
         #org @main
         lockall
         checkgender
-        copyvar LASTRESULT 0x8004
+        copyvar 0x8004 LASTRESULT
         checkflag 0x35C
         if 0x1 goto @snippet2
         msgbox @string1 MSG_KEEPOPEN
         call @snippet3
         pause 0x1E
         setflag 0x35C
-        call @snippet4
-        sound 0x9
+        msgbox @string2 MSG_KEEPOPEN
+        closeonkeypress
         releaseall
         end
         
         '---------------
         #org @snippet2
         fadescreen 0x1
-        special 0x9A
+        special 0x9B
         waitstate
         releaseall
         end
@@ -58,12 +58,6 @@ Adaptación del código para pokefirered de: https://github.com/Sotomura/pokefir
         fadescreen 0x1
         special 0x9A
         waitstate
-        return
-        
-        '---------------
-        #org @snippet4
-        msgbox @string2 MSG_KEEPOPEN
-        closeonkeypress
         return
         
         '---------------

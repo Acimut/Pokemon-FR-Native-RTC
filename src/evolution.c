@@ -1,6 +1,7 @@
-#include "include/global.h"
-#include "include/constants/items.h"
+#include "global.h"
+#include "constants/items.h"
 
+#include "constants/maps.h"
 
 const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
 {
@@ -190,14 +191,77 @@ const struct Evolution gEvolutionTable[NUM_SPECIES][EVOS_PER_MON] =
     [SPECIES_METANG]     = {{EVO_LEVEL, 45, SPECIES_METAGROSS}},
 };
 
+//  daycare.c
+
+/**
+ * ::ACIMUT::
+ * 
+ * Esta función limita la cantidad de evoluciones diferentes
+ * que puede tener un pokémon. Al hacer hook a esta función
+ * para que actualize EVOS_PER_MON que por defecto tiene 5
+ * evoluciones (las 5 evoluciones de Eevee por defecto).
+ * 
+ * Para cambiar esto, sólo sería necesario cambiar la 
+ * definición de EVOS_PER_MON en el archivo include/pokemon.h
+ * Ejemplo: Si necesitamos 10 evoluciones diferentes, buscamos
+ * esta línea en include/pokemon.h:
+ * #define EVOS_PER_MON 5
+ * 
+ * y la modificamos así:
+ * #define EVOS_PER_MON 10
+ * 
+ * Por último sólo faltaría modificar la tabla gEvolutionTable
+ * y agregar las evoluciones correspondientes.
+ * 
+ * También se definió STAGE_EVOLUTIONS con la cantidad de veces que
+ * puede evolucionar un pokémon, donde normalmente es menor o igual a 3.
+*/
+
+// Determines what the species of an Egg would be based on the given species.
+// It determines this by working backwards through the evolution chain of the
+// given species.
+//static 
+u16 GetEggSpecies_new(u16 species)
+{
+    int i, j, k;
+    bool8 found;
+
+    // Working backwards up to 5 times seems arbitrary, since the maximum number
+    // of times would only be 3 for 3-stage evolutions.
+    //for (i = 0; i < EVOS_PER_MON; i++)
+    for (i = 0; i < STAGE_EVOLUTIONS; i++)
+    {
+        found = FALSE;
+        for (j = 1; j < NUM_SPECIES; j++)
+        {
+            for (k = 0; k < EVOS_PER_MON; k++)
+            {
+                if (gEvolutionTable[j][k].targetSpecies == species)
+                {
+                    species = j;
+                    found = TRUE;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        if (j == NUM_SPECIES)
+            break;
+    }
+
+    return species;
+}
+
+
+
 /*
-//      REPUNTEAR   gEvolutionTable
-
-//en daycare.c, cambiar la función GetEggSpecies o hacer hook
-
-
+//Sólo es necesario cambiar el puntero a gEvolutionTable de la siguiente función.
 
 //evolution_scene.c
+//080ce748 l 00000194 CreateShedinja
 
 static void CreateShedinja(u16 preEvoSpecies, struct Pokemon* mon)
 {
@@ -234,44 +298,5 @@ static void CreateShedinja(u16 preEvoSpecies, struct Pokemon* mon)
             && GetMonData(mon, MON_DATA_SPECIES) == SPECIES_NINJASK)
                 SetMonData(shedinja, MON_DATA_NICKNAME, sText_ShedinjaJapaneseName);
     }
-}
-
-//  daycare.c
-
-// Determines what the species of an Egg would be based on the given species.
-// It determines this by working backwards through the evolution chain of the
-// given species.
-static u16 GetEggSpecies(u16 species)
-{
-    int i, j, k;
-    bool8 found;
-
-    // Working backwards up to 5 times seems arbitrary, since the maximum number
-    // of times would only be 3 for 3-stage evolutions.
-    for (i = 0; i < EVOS_PER_MON; i++)
-    {
-        found = FALSE;
-        for (j = 1; j < NUM_SPECIES; j++)
-        {
-            for (k = 0; k < EVOS_PER_MON; k++)
-            {
-                if (gEvolutionTable[j][k].targetSpecies == species)
-                {
-                    species = j;
-                    found = TRUE;
-                    break;
-                }
-            }
-
-            if (found)
-                break;
-        }
-
-        if (j == NUM_SPECIES)
-            break;
-    }
-
-    return species;
-}
-*/
+}*/
 

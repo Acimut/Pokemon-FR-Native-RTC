@@ -305,21 +305,38 @@ enum
 #define EVO_LEVEL_SHEDINJA   0x000e // Pokémon reaches the specified level (special value for Shedinja)
 #define EVO_BEAUTY           0x000f // Pokémon levels up with beauty ≥ specified value
 
+#define EVO_LEVEL_MALE       0x0010 // Pokémon reaches specified level while male
+#define EVO_LEVEL_FEMALE     0x0011 // Pokémon reaches specified level while female
+#define EVO_ITEM_MALE        0x0012 // specified item is used on male Pokémon
+#define EVO_ITEM_FEMALE      0x0013 // specified item is used on female Pokémon
+#define EVO_MOVE             0x0014 // Pokémon levels up with specified move
+#define EVO_MAPNUM           0x0015 // Pokémon levels up in specified map number
+#define EVO_LEVEL_DAY        0x0016 // Pokémon reaches specified level in the day
+#define EVO_LEVEL_NIGHT      0x0017 // Pokémon reaches specified level in the night
+#define EVO_ITEM_DAY         0x0018 // Pokémon levels up while holding specified item during the day
+#define EVO_ITEM_NIGHT       0x0019 // Pokémon levels up while holding specified item during the night
+#define EVO_LEVEL_MON        0x001a // Pokémon levels up while specified mon is in the party
+#define EVO_LEVEL_DARK       0x001b // Pokémon reaches specified level while a Dark-type Pokémon is in the party
+#define EVO_LEVEL_RAIN       0x001c // Pokémon reaches specified level while raining in the overworld
+//#define EVO_TRADE_MON        0X001d // Pokémon is traded with specified Pokémon
+
 struct Evolution
 {
     u16 method;
     u16 param;
     u16 targetSpecies;
-    u16 relleno;//halfword de relleno.
+    u16 filler;//sizeof: 8 bytes. halfword de relleno.
 };
 
 #define EVOS_PER_MON 5
+#define STAGE_EVOLUTIONS 3
 
 extern u8 gPlayerPartyCount;
 extern struct Pokemon gPlayerParty[PARTY_SIZE];
 extern u8 gEnemyPartyCount;
 extern struct Pokemon gEnemyParty[PARTY_SIZE];
 extern const struct BaseStats gBaseStats[];
+extern const struct BaseStats *gBaseStatsPtr;
 extern const u8 *const gItemEffectTable[];
 extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
 extern const u8 gStatStageRatios[][2];

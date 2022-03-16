@@ -1,20 +1,20 @@
-#include "include/global.h"
-#include "include/gflib.h"
-#include "include/m4a.h"
-#include "include/task.h"
-#include "include/scanline_effect.h"
-#include "include/libgcnmultiboot.h"
-#include "include/new_menu_helpers.h"
-#include "include/link.h"
-#include "include/menu.h"
-#include "include/save.h"
-#include "include/new_game.h"
-#include "include/title_screen.h"
-#include "include/decompress.h"
-#include "include/util.h"
-#include "include/trig.h"
-#include "include/load_save.h"  //RTC code
-#include "include/constants/songs.h"
+#include "global.h"
+#include "gflib.h"
+#include "m4a.h"
+#include "task.h"
+#include "scanline_effect.h"
+#include "libgcnmultiboot.h"
+#include "new_menu_helpers.h"
+#include "link.h"
+#include "menu.h"
+#include "save.h"
+#include "new_game.h"
+#include "title_screen.h"
+#include "decompress.h"
+#include "util.h"
+#include "trig.h"
+#include "load_save.h"  //RTC code
+#include "constants/songs.h"
 
 extern bool8 RunCopyrightScreen(void);
 
@@ -30,18 +30,14 @@ void c2_copyright_1_Hook(void)   // RTC code repuntear esta función
 {
     if (!RunCopyrightScreen())
     {
-#ifndef RTC_DEBUG
         SeedRngAndSetTrainerId();   // RTC code hook
         SetSaveBlocksPointers();    // RTC code hook
-#endif
         ResetMenuAndMonGlobals();
         Save_ResetSaveCounters();
         Save_LoadGameData(SAVE_NORMAL);
         if (gSaveFileStatus == SAVE_STATUS_EMPTY || gSaveFileStatus == SAVE_STATUS_INVALID)
             Sav2_ClearSetDefault();
         SetPokemonCryStereo(gSaveBlock2Ptr->optionsSound);
-#ifndef RTC_DEBUG
         InitHeap(gHeap, HEAP_SIZE); // RTC code hook
-#endif
     }
 }

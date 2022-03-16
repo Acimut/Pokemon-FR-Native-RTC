@@ -1,4 +1,4 @@
-#include "include/global.h"
+#include "global.h"
 // wall clock
 
 const u16 gWallClockMale_Pal[]      = INCBIN_U16("graphics/wallclock/male.gbapal");

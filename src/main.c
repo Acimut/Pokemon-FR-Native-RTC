@@ -1,22 +1,22 @@
 
-#include "include/global.h"
-#include "include/gflib.h"
-#include "include/link.h"
-#include "include/link_rfu.h"
-#include "include/load_save.h"
-#include "include/m4a.h"
-#include "include/rtc.h"    // RTC code
-#include "include/random.h"
-#include "include/gba/flash_internal.h"
-#include "include/help_system.h"
-#include "include/new_menu_helpers.h"
-#include "include/overworld.h"
-#include "include/play_time.h"
-#include "include/intro.h"
-#include "include/battle_controllers.h"
-#include "include/scanline_effect.h"
-#include "include/save_failed_screen.h"
-#include "include/quest_log.h"
+#include "global.h"
+#include "gflib.h"
+#include "link.h"
+#include "link_rfu.h"
+#include "load_save.h"
+#include "m4a.h"
+#include "rtc.h"    // RTC code
+#include "random.h"
+#include "gba/flash_internal.h"
+#include "help_system.h"
+#include "new_menu_helpers.h"
+#include "overworld.h"
+#include "play_time.h"
+#include "intro.h"
+#include "battle_controllers.h"
+#include "scanline_effect.h"
+#include "save_failed_screen.h"
+#include "quest_log.h"
 
 extern void m4aSoundVSyncOff(void);
 
@@ -29,22 +29,17 @@ extern void m4aSoundVSyncOff(void);
 //void EnableVCountIntrAtLine150(void);
 
 
-void EnableVCountIntrAtLine150(void)
+//--------------------------------------    hook     ---------------------------------------//
+
+void EnableVCountIntrAtLine150_new(void)
 {
     u16 gpuReg = (GetGpuReg(REG_OFFSET_DISPSTAT) & 0xFF) | (150 << 8);
     SetGpuReg(REG_OFFSET_DISPSTAT, gpuReg | DISPSTAT_VCOUNT_INTR);
     EnableInterrupts(INTR_FLAG_VCOUNT);
+    RtcInit();  // RTC code hook            //
 }
 
-//--------------------------------------    hook     ---------------------------------------//
-void EnableVCountIntrAtLine150_new(void)
-{
-    EnableVCountIntrAtLine150();            //0x08000598
-    InitRFU();  // definir en archivo .LD   //0x080f86c4
-#ifndef RTC_DEBUG
-    RtcInit();  // RTC code hook            //
-#endif
-}
+
 //--------------------------------------    hook    ---------------------------------------//
 
 
@@ -56,11 +51,7 @@ void DoSoftReset_RTC(void)
     DmaStop(1);
     DmaStop(2);
     DmaStop(3);
-
-#ifndef RTC_DEBUG
     SiiRtcProtect();    // RTC code
-#endif
-
     SoftReset(RESET_ALL & ~RESET_SIO_REGS);
 }
 

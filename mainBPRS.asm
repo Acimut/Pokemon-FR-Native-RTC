@@ -7,7 +7,6 @@
 .include "hooks/BPRS/c2_copyright_1_Ptr.s"
 .include "hooks/BPRS/DoSoftReset_hook.s"
 
-//RTC_DEBUG
 .include "hooks/BPRS/Task_SetWin0BldRegsAndCheckSaveFile_ptr.s"
 .include "hooks/BPRS/title_screen_hook.s"
 .include "hooks/BPRS/GetEvolutionTargetSpecies_n_others_hook.s"
@@ -20,12 +19,12 @@
 .include "hooks/BPRS/gScriptCmdTable_ptr.s"
 .include "hooks/BPRS/gSpecials_ptr.s"
 
+.include "hooks/BPRS/evolution_hooks.s"
 
 //------main-----------------------------------------
 //aquí se insertará todo el código.
 .align 4
 .org insertinto
-.importobj "src/siirtc_pokefirered.o"
 .importobj "build/linked.o"
 .close
 

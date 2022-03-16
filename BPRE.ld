@@ -40,7 +40,7 @@ gPaletteFade = 0x02037ab8;
 gPlayerPartyCount = 0x02024029;
 gDifferentSaveFile = 0x02031db0;
 gQuestLogState = 0x0203adfa;
-
+gPlayerParty = 0x02024284;
 
 /* IWRAM */
 gTasks = 0x03005090;
@@ -61,7 +61,7 @@ sErrorStatus    = 0x030074e8;
 sRtc            = 0x030074f0;
 sProbeResult    = 0x030074fc;
 sSavedIme       = 0x030074fe;
-
+offset_debug    = 0x03007500;
 
 /* main_menu.c */
 sWindowTemplate = 0x08234618;
@@ -75,6 +75,7 @@ RunTextPrinters = 0x08002de8|1;
 IsTextPrinterActive = 0x08002e64|1;
 ClearWindowTilemap = 0x080040b8|1;
 MainMenu_EraseWindow = 0x0800d1e8|1;
+IsMysteryGiftEnabled = 0x0806e2bc|1;
 
 /* main.c */
 InitRFU = 0x080f86c4|1;
@@ -172,6 +173,7 @@ FindTaskIdByFunc = 0x08077688|1;
 SetHelpContext = 0x0812b1f0|1;
 HelpSystem_Enable = 0x0812b484|1;
 m4aMPlayAllStop = 0x081dd228|1;
+CB2_InitMainMenu = 0x0800c300|1;
 
 /* field_specials.c */
 ScriptContext2_Enable = 0x08069940|1;
@@ -186,7 +188,7 @@ SetSav1WeatherFromCurrMapHeader = 0x0807b140|1;
 Overworld_ResetStateOnContinue = 0x08054e40|1;
 
 /* pokemon.c */
-gPlayerParty = 0x02024284;
+
 GetMonData = 0x0803fbe8|1;
 SetMonData = 0x0804037c|1;
 ItemId_GetHoldEffect = 0x0809a924|1;
@@ -196,7 +198,7 @@ CheckPartyHasHadPokerus = 0x08043ad8|1;
 
 /* const */
 EventScript_ResetAllMapFlags = 0x081a6481;
-gEvolutionTable = 0x08259754;
+/*gEvolutionTable = 0x08259754;*/
 gBitTable = 0x0825e45c;
 gDummySpriteAffineAnimTable = 0x08231cfc;
 gMenuText_Confirm = 0x084169d5;
@@ -237,12 +239,20 @@ SetOamMatrix = 0x080073bc|1;
 Sin2 = 0x08044e6c|1;
 Cos2 = 0x08044eb0|1;
 
+/* evolution.c */
+GetCurrentWeather = 0x0807af98|1;
+MonKnowsMove      = 0x08125ac0|1;
+gBaseStatsPtr     = 0x080001BC;/* puntero a gBaseStats*/
+GetMonGender      = 0x0803f720|1;
+
+
+/*  EV-IV old*/
+
 DestroySpriteAndFreeResources = 0x08007804|1;
 stdpal_get = 0x08150408|1;
 
 PlaySE = 0x080722cc|1;
 GetNature = 0x08042e9c|1;
-gBaseStatsPtr = 0x080001BC;
 
 GetSpeciesName = 0x08040fd0|1;
 GetMonNickname = 0x081202e0|1;
@@ -312,5 +322,3 @@ CreateMonSprite_FieldMove = 0x080839d4|1;
 FreeResourcesAndDestroySprite = 0x08083a5c|1;
 SpriteCallbackDummy = 0x0800760c|1;
 gSprites = 0x0202063c;
-
-

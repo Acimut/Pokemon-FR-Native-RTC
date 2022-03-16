@@ -1,7 +1,7 @@
-#include "include/global.h"
-#include "include/rtc.h"
-#include "include/string_util.h"
-#include "include/text.h"
+#include "global.h"
+#include "rtc.h"
+#include "string_util.h"
+#include "text.h"
 
 // iwram bss
 extern u16 sErrorStatus;        // IWRAM [2 bytes]   /align  0x030074e8;

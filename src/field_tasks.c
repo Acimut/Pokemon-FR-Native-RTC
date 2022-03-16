@@ -1,20 +1,20 @@
-#include "include/global.h"
-#include "include/gflib.h"
-#include "include/bike.h"
-#include "include/clock.h"  // RTC code
-#include "include/event_data.h"
-#include "include/field_camera.h"
-#include "include/field_effect_helpers.h"
-#include "include/field_player_avatar.h"
-#include "include/fieldmap.h"
-#include "include/metatile_behavior.h"
-#include "include/overworld.h"
-#include "include/quest_log.h"
-#include "include/script.h"
-#include "include/task.h"
-#include "include/constants/field_tasks.h"
-#include "include/constants/metatile_labels.h"
-#include "include/constants/songs.h"
+#include "global.h"
+#include "gflib.h"
+#include "bike.h"
+#include "clock.h"  // RTC code
+#include "event_data.h"
+#include "field_camera.h"
+#include "field_effect_helpers.h"
+#include "field_player_avatar.h"
+#include "fieldmap.h"
+#include "metatile_behavior.h"
+#include "overworld.h"
+#include "quest_log.h"
+#include "script.h"
+#include "task.h"
+#include "constants/field_tasks.h"
+#include "constants/metatile_labels.h"
+#include "constants/songs.h"
 
 #define tState           data[0]    // RTC code
 
@@ -46,9 +46,7 @@ void Task_RunTimeBasedEvents_new(u8 taskId)  //repuntear esta función.
     {
         if (!QL_IS_PLAYBACK_STATE)
         {
-#ifndef RTC_DEBUG
             RunTimeBasedEvents(data);   // RTC code /hook
-#endif
             UpdateAmbientCry(&data[1], &data[2]);
         }
     }

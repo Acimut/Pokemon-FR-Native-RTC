@@ -1,10 +1,10 @@
-#include "include/global.h"
-#include "include/main.h"
-#include "include/script.h"
+#include "global.h"
+#include "main.h"
+#include "script.h"
 
-#include "include/overworld.h"
-#include "include/rtc.h"        // RTC code
-#include "include/wallclock.h"  // RTC code
+#include "overworld.h"
+#include "rtc.h"        // RTC code
+#include "wallclock.h"  // RTC code
 
 
 /*

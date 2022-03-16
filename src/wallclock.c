@@ -1,28 +1,28 @@
 #include "gfx.h"
 #include "textos.h"
 
-#include "include/global.h"
-#include "include/bg.h"
-#include "include/new_menu_helpers.h"
-#include "include/clock.h"
-#include "include/decompress.h"
-#include "include/event_data.h"
-#include "include/gpu_regs.h"
-#include "include/graphics.h"
-#include "include/main.h"
-#include "include/menu.h"
-#include "include/palette.h"
-#include "include/rtc.h"
-#include "include/scanline_effect.h"
-#include "include/sound.h"
-#include "include/task.h"
-#include "include/text.h"
-#include "include/text_window.h"
-#include "include/trig.h"
-#include "include/wallclock.h"
-#include "include/window.h"
-#include "include/constants/rgb.h"
-#include "include/constants/songs.h"
+#include "global.h"
+#include "bg.h"
+#include "new_menu_helpers.h"
+#include "clock.h"
+#include "decompress.h"
+#include "event_data.h"
+#include "gpu_regs.h"
+#include "graphics.h"
+#include "main.h"
+#include "menu.h"
+#include "palette.h"
+#include "rtc.h"
+#include "scanline_effect.h"
+#include "sound.h"
+#include "task.h"
+#include "text.h"
+#include "text_window.h"
+#include "trig.h"
+#include "wallclock.h"
+#include "window.h"
+#include "constants/rgb.h"
+#include "constants/songs.h"
 
 static void CB2_WallClock(void);
 static void Task_SetClock_WaitFadeIn(u8 taskId);
@@ -655,6 +655,19 @@ static void LoadWallClockGraphics(void)
     DmaClear32(3, (void *)OAM, OAM_SIZE);
     DmaClear16(3, (void *)PLTT, PLTT_SIZE);
     LZ77UnCompVram(gWallClock_Gfx, (void *)VRAM);
+
+/**
+ * 2022/03/06
+ * ::ACIMUT::
+ * 
+ * CAMBIAR PALETA DEL WALLCLOCK AUTOMÁTICAMENTE:
+ * 
+ * Si se desea hacer la comparación directamente, sin necesidad
+ * de usar checkgender en script y pasar LASTRESULT a 0x8004,
+ * cambiar `gSpecialVar_0x8004` del siguiente condicional por
+ * `gSaveBlock2Ptr->playerGender` como se muestra a continuación:
+ *       if (gSaveBlock2Ptr->playerGender == MALE)
+*/
 
     if (gSpecialVar_0x8004 == MALE)
         LoadPalette(gWallClockMale_Pal, 0, 32);

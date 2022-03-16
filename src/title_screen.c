@@ -1,22 +1,22 @@
-#include "include/global.h"
-#include "include/gflib.h"
-#include "include/task.h"
-#include "include/new_menu_helpers.h"
-#include "include/m4a.h"
-#include "include/scanline_effect.h"
-#include "include/graphics.h"
-#include "include/help_system.h"
-#include "include/intro.h"
-#include "include/load_save.h"
-#include "include/new_game.h"
-#include "include/save.h"
-#include "include/event_data.h" // RTC code
-#include "include/main_menu.h"
-#include "include/clear_save_data_screen.h"
-#include "include/reset_rtc_screen.h"   // RTC code
-#include "include/berry_fix_program.h"
-#include "include/decompress.h"
-#include "include/constants/songs.h"
+#include "global.h"
+#include "gflib.h"
+#include "task.h"
+#include "new_menu_helpers.h"
+#include "m4a.h"
+#include "scanline_effect.h"
+#include "graphics.h"
+#include "help_system.h"
+#include "intro.h"
+#include "load_save.h"
+#include "new_game.h"
+#include "save.h"
+#include "event_data.h" // RTC code
+#include "main_menu.h"
+#include "clear_save_data_screen.h"
+#include "reset_rtc_screen.h"   // RTC code
+#include "berry_fix_program.h"
+#include "decompress.h"
+#include "constants/songs.h"
 
 enum TitleScreenScene
 {
@@ -71,7 +71,7 @@ void SetTitleScreenScene_Run_new(s16 * data) // RTC code repuntear para hacer ho
         data[1]++;
         // fallthrough
         //aquí falta un break;
-        //break;
+        break;
     case 1:
         if (JOY_HELD(KEYSTROKE_DELSAVE) == KEYSTROKE_DELSAVE)
         {
@@ -79,14 +79,12 @@ void SetTitleScreenScene_Run_new(s16 * data) // RTC code repuntear para hacer ho
             DestroyTask(FindTaskIdByFunc(Task_TitleScreenMain));
             SetMainCallback2(CB2_FadeOutTransitionToSaveClearScreen);
         }
-#ifndef RTC_DEBUG
         else if (JOY_HELD(KEYSTROKE_RESET_RTC) == KEYSTROKE_RESET_RTC && CanResetRTC() == TRUE) // RTC code new
         {                                                           // RTC code
             ScheduleHideSlashSprite(data[6]);                       // RTC code
             DestroyTask(FindTaskIdByFunc(Task_TitleScreenMain));    // RTC code
             SetMainCallback2(CB2_FadeOutTransitionToResetRtcScreen);// RTC code
         }                                                           // RTC code
-#endif
         else if (JOY_HELD(KEYSTROKE_BERRY_FIX) == KEYSTROKE_BERRY_FIX)
         {
             ScheduleHideSlashSprite(data[6]);
@@ -116,10 +114,15 @@ void CB2_FadeOutTransitionToResetRtcScreen(void) // RTC code new
 }                                                       // RTC code
 
 
+/*void SetTitleScreenScene_Cry_hook (void)
+{
+    SetMainCallback2(CB2_InitMainMenu);
+    DestroyTask(FindTaskIdByFunc(Task_TitleScreenMain));
+}*/
+
 //080791c0 l 00000108 SetTitleScreenScene_Cry
 /*
-La manera de hacer hook aquí es la siguiente:
-borrar los bytes desde 0x08079254 hasta 0x08079291
+title_screen_hook.s
 
 static void SetTitleScreenScene_Cry(s16 * data)
 {

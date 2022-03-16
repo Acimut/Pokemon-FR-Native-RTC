@@ -1,7 +1,7 @@
-#include "include/global.h"
-#include "include/event_data.h"
-#include "include/item_menu.h"
-#include "include/quest_log.h"
+#include "global.h"
+#include "event_data.h"
+#include "item_menu.h"
+#include "quest_log.h"
 
 #define NUM_DAILY_FLAGS   (DAILY_FLAGS_END - DAILY_FLAGS_START + 1) // RTC code /new
 #define DAILY_FLAGS_SIZE    (NUM_DAILY_FLAGS / 8)                   // RTC code /new

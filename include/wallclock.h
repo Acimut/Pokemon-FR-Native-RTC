@@ -1,6 +1,6 @@
 #ifndef GUARD_WALLCLOCK_H
 #define GUARD_WALLCLOCK_H
-#include "include/global.h"
+#include "global.h"
 
 extern void CB2_StartWallClock(void);
 extern void CB2_ViewWallClock(void);

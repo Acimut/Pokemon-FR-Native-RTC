@@ -1,10 +1,16 @@
-#include "include/global.h"
+#include "global.h"
 
 // data/text/save.inc
 const u8 gText_SaveFailed[] = _("Save failed…");
 
-// src/strings.c
+
+//src/strings.c
+//used by main_menu.c
 const u8 gText_BatteryRunDry[] = _("The internal battery has run dry.\nThe game can be played.\pHowever, clock-based events will\nno longer occur.");
+const u8 gText_SaveFileCorruptedPrevWillBeLoaded[] = _("The save file is corrupted.\pThe previous save file will be\nloaded.");
+const u8 gText_SaveFileHasBeenDeleted[] = _("The save file has been\ndeleted...");
+const u8 gText_1MSubCircuitBoardNotInstalled[] = _("The 1M sub-circuit board is\nnot installed.");
+
 
 const u8 gText_ResetRTCConfirmCancel[] = _("Reset RTC?\nA: Confirm, B: Cancel");
 const u8 gText_PresentTime[] = _("Present time in game");
@@ -22,3 +28,6 @@ const u8 gText_Cancel4[] = _("CANCEL");
 const u8 gText_Day[] = _("DAY");
 const u8 gText_Colon3[] = _(":");
 const u8 gText_Confirm2[] = _("CONFIRM");
+
+
+

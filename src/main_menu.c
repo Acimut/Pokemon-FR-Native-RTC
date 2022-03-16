@@ -1,24 +1,24 @@
 #include "textos.h"    //acimut's code
-#include "include/global.h"
-#include "include/gflib.h"
-#include "include/scanline_effect.h"
-#include "include/task.h"
-#include "include/save.h"
-#include "include/event_data.h"
-#include "include/menu.h"
-#include "include/rtc.h"    // RTC code
-#include "include/link.h"
-#include "include/oak_speech.h"
+#include "global.h"
+#include "gflib.h"
+#include "scanline_effect.h"
+#include "task.h"
+#include "save.h"
+#include "event_data.h"
+#include "menu.h"
+#include "rtc.h"    // RTC code
+#include "link.h"
+#include "oak_speech.h"
 //#include "overworld.h"
-#include "include/quest_log.h"
-#include "include/mystery_gift_menu.h"
-//#include "include/strings.h"
-#include "include/title_screen.h"
-#include "include/help_system.h"
-#include "include/pokedex.h"
-#include "include/text_window.h"
-#include "include/text_window_graphics.h"
-#include "include/constants/songs.h"
+#include "quest_log.h"
+#include "mystery_gift_menu.h"
+//#include "strings.h"
+#include "title_screen.h"
+#include "help_system.h"
+#include "pokedex.h"
+#include "text_window.h"
+#include "text_window_graphics.h"
+#include "constants/songs.h"
 
 enum MainMenuType
 {
@@ -114,6 +114,72 @@ static void Task_WaitForBatteryDryErrorWindow(u8 taskId)    // RTC code /new
                 else
                     gTasks[taskId].func = Task_PrintMainMenuText;
             }
+        }
+    }
+}
+
+
+/*
+ * The entire screen is darkened slightly except at WIN0 to indicate
+ * the player cursor position.
+ */
+
+//static 
+void Task_SetWin0BldRegsAndCheckSaveFile_new(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        SetGpuReg(REG_OFFSET_WIN0H, 0);
+        SetGpuReg(REG_OFFSET_WIN0V, 0);
+        SetGpuReg(REG_OFFSET_WININ, 0x0001);
+        SetGpuReg(REG_OFFSET_WINOUT, 0x0021);
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG1 | BLDCNT_TGT1_BG2 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_OBJ | BLDCNT_TGT1_BD | BLDCNT_EFFECT_DARKEN);
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(0, 0));
+        SetGpuReg(REG_OFFSET_BLDY, 7);
+        switch (gSaveFileStatus)
+        {
+        case SAVE_STATUS_OK:
+            LoadUserFrameToBg(0);
+            if (IsMysteryGiftEnabled() == TRUE)
+            {
+                gTasks[taskId].tMenuType = MAIN_MENU_MYSTERYGIFT;
+            }
+            else
+            {
+                gTasks[taskId].tMenuType = MAIN_MENU_CONTINUE;
+            }
+            //gTasks[taskId].func = Task_SetWin0BldRegsNoSaveFileCheck;
+            gTasks[taskId].func = Task_MainMenuCheckBattery;//RTC CODE
+            break;
+        case SAVE_STATUS_INVALID:
+            SetStdFrame0OnBg(0);
+            gTasks[taskId].tMenuType = MAIN_MENU_NEWGAME;
+            PrintSaveErrorStatus(taskId, gText_SaveFileHasBeenDeleted);
+            break;
+        case SAVE_STATUS_ERROR:
+            SetStdFrame0OnBg(0);
+            gTasks[taskId].tMenuType = MAIN_MENU_CONTINUE;
+            PrintSaveErrorStatus(taskId, gText_SaveFileCorruptedPrevWillBeLoaded);
+            if (IsMysteryGiftEnabled() == TRUE)
+            {
+                gTasks[taskId].tMenuType = MAIN_MENU_MYSTERYGIFT;
+            }
+            else
+            {
+                gTasks[taskId].tMenuType = MAIN_MENU_CONTINUE;
+            }
+            break;
+        case SAVE_STATUS_EMPTY:
+        default:
+            LoadUserFrameToBg(0);
+            gTasks[taskId].tMenuType = MAIN_MENU_NEWGAME;
+            gTasks[taskId].func = Task_SetWin0BldRegsNoSaveFileCheck;
+            break;
+        case SAVE_STATUS_NO_FLASH:
+            SetStdFrame0OnBg(0);
+            gTasks[taskId].tMenuType = MAIN_MENU_NEWGAME;
+            PrintSaveErrorStatus(taskId, gText_1MSubCircuitBoardNotInstalled);
+            break;
         }
     }
 }

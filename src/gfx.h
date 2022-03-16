@@ -1,4 +1,4 @@
-#include "include/global.h"
+#include "global.h"
 // wall clock
 
 extern const u32 gWallClock_Gfx[];

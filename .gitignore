@@ -18,8 +18,7 @@ pokefirered_bin/*
 *.ss3
 *.zip
 
-offsets.txt
-Script.txt
+offsets*.txt
 
 # GBA
 *.gba

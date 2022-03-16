@@ -42,7 +42,6 @@ gDifferentSaveFile  = 0x02031db0;
 gQuestLogState      = 0x0203adfa;
 gPlayerParty        = 0x02024284;
 
-
 /* IWRAM */
 gTasks          = 0x03004fe0;
 gMain           = 0x03003040;
@@ -62,7 +61,7 @@ sErrorStatus    = 0x030074e8;
 sRtc            = 0x030074f0;
 sProbeResult    = 0x030074fc;
 sSavedIme       = 0x030074fe;
-
+offset_debug    = 0x03007500;
 
 /* main_menu.c */
 sWindowTemplate = 0x0822fd84;/*idk*/
@@ -76,6 +75,7 @@ RunTextPrinters                     = 0x08002D54|1;
 IsTextPrinterActive                 = 0x08002DD0|1;
 ClearWindowTilemap                  = 0x08004024|1;
 MainMenu_EraseWindow                = 0x0800D158|1;/*static*/
+IsMysteryGiftEnabled                = 0x0806E2F4|1;
 
 /* main.c */
 InitRFU             = 0x080f8a40|1;
@@ -116,7 +116,6 @@ FlagGet     = 0x0806e708|1;
 StringCopy            = 0x08008cf0|1;
 ZeroPlayerPartyMons   = 0x0803d900|1;
 ZeroEnemyPartyMons    = 0x0803d920|1;
-
 ClearBattleTower      = 0x08054ac8|1;/*static*/
 ClearSav1             = 0x0804c128|1;
 ClearMailData         = 0x08097e70|1;
@@ -145,7 +144,6 @@ SetAllRenewableItemFlags    = 0x0815d604|1;
 WarpToPlayersRoom           = 0x08054aec|1;/*static*/
 ScriptContext2_RunNewScript = 0x08069c0c|1;
 ResetTrainerTowerResults    = 0x0815eb94|1;
-
 GetGeneratedTrainerIdLower  = 0x08000588|1;
 SetTrainerId                = 0x080549F0|1;
 SetWarpDestination          = 0x08055480|1;
@@ -153,7 +151,7 @@ WarpIntoMap                 = 0x0805546C|1;
 SetBerryPowder              = 0x0815ebdc|1;
 ResetPokeJumpResults        = 0x0814b26c|1;
 
-NewGameInitData = 0x08054b54|1;/*0x08054a60|1;*/
+NewGameInitData = 0x08054b54|1;
 
 /* intro.c */
 SeedRngAndSetTrainerId  = 0x08000560|1;
@@ -175,6 +173,7 @@ FindTaskIdByFunc    = 0x080776C0|1;
 SetHelpContext      = 0x0812b36c|1;
 HelpSystem_Enable   = 0x0812B600|1;
 m4aMPlayAllStop     = 0x081dcd5c|1;
+CB2_InitMainMenu    = 0x0800C26C|1;
 
 /* field_specials.c */
 ScriptContext2_Enable   = 0x08069a04|1;
@@ -186,7 +185,7 @@ UpdateAmbientCry         = 0x0805616C|1;
 
 /* overworld.c */
 SetSav1WeatherFromCurrMapHeader = 0x0807B178|1;
-Overworld_ResetStateOnContinue  = 0x08054f34|1;/*0x08054e40|1; static*/
+Overworld_ResetStateOnContinue  = 0x08054f34|1;
 
 /* pokemon.c */
 
@@ -199,9 +198,9 @@ CheckPartyHasHadPokerus  = 0x080439C4|1;
 
 /* const */
 EventScript_ResetAllMapFlags = 0x081a603a;
-gEvolutionTable = 0x08254F1C;/*0x08259754;*/
+/*gEvolutionTable = 0x08254F1C;*/
 gBitTable = 0x08259c24;
-gDummySpriteAffineAnimTable = 0x0822d468;/*fc 1c 23 08 -> 68 D4 22 08 -> 0822d468*/
+gDummySpriteAffineAnimTable = 0x0822d468;
 gMenuText_Confirm = 0x08411172;
 
 
@@ -240,10 +239,11 @@ SetOamMatrix = 0x08007328|1;
 Sin2 = 0x08044e44|1;
 Cos2 = 0x08044e88|1;
 
-
-
-
-
+/* evolution.c */
+GetCurrentWeather = 0x0807AFD0|1;
+MonKnowsMove      = 0x08125C3C|1;
+gBaseStatsPtr     = 0x080001BC;/* puntero a gBaseStats*/
+GetMonGender      = 0x0803F60C|1;
 
 
 /*  EV-IV old*/
@@ -253,9 +253,6 @@ stdpal_get = 0x081501f8|1;
 
 PlaySE = 0x08072304|1;
 GetNature = 0x08042D88|1;
-
-
-gBaseStatsPtr = 0x080001BC;
 
 GetSpeciesName = 0x08040EBC|1;
 GetMonNickname = 0x08120440|1;

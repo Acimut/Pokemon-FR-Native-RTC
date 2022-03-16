@@ -4,7 +4,9 @@ MEMORY {
 }
 
 SECTIONS {
-        .text : {
+        .text :
+        ALIGN(4)
+        {
 
                 FILL (0xABCD)
 
@@ -15,10 +17,31 @@ SECTIONS {
                 *(.ctors)
                 *(.dtors)
                 *(.data)
-                *(.rodata)
                 *(.fini)
                 *(COMMON)
                 __text_end  = . ;
+        }
+
+        lib_text :
+        ALIGN(4)
+        {
+                __text_siirtc_start = . ;
+                build/src/siirtc.o(.text);
+                __text_siirtc_end  = . ;
+        }
+
+        .rodata :
+        SUBALIGN(4)
+        {
+                __rodata_start  = . ;
+                *(.rodata)
+        }
+
+        lib_rodata :
+        SUBALIGN(4)
+        {
+                build/src/siirtc.o(.rodata);
+                __rodata_end  = . ;
 
                 __bss_start__ = . ;
                 *(.bss .bss.*)

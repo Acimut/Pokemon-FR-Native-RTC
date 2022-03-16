@@ -1,7 +1,7 @@
-#include "include/global.h"
-#include "include/clock.h"      // RTC code
+#include "global.h"
+#include "clock.h"      // RTC code
 
-#include "include/overworld.h"
+#include "overworld.h"
 /*
 #include "gflib.h"
 #include "bg_regs.h"
@@ -191,17 +191,13 @@ extern void Overworld_ResetStateOnContinue(void);
 
 void SetSav1WeatherFromCurrMapHeader_new(void)
 {
-#ifndef RTC_DEBUG
     DoTimeBasedEvents();                            // RTC code [mejor cambiar el bl a una función que lleve a esta y la siguiente.]
-#endif
     SetSav1WeatherFromCurrMapHeader();              //0807b140 g 00000034 SetSav1WeatherFromCurrMapHeader
 }
 
 void Overworld_ResetStateOnContinue_new(void)
 {
-#ifndef RTC_DEBUG
     DoTimeBasedEvents();                // RTC code [mejor cambiar el bl a una función que lleve a esta y la siguiente.]
-#endif
     Overworld_ResetStateOnContinue();   //08054e40 l 00000028 Overworld_ResetStateOnContinue
 }
 

@@ -10,8 +10,7 @@ include $(DEVKITARM)/base_tools
 
 ROM_CODE ?= BPRE
 OFFSET ?= 0x08730000
-DEBUG ?= RTC
-# RTC_DEBUG
+DEBUG ?= NO # RTC_DEBUG
 export BUILD := build
 export SRC := src
 export BINARY := $(BUILD)/linked.o
@@ -31,16 +30,16 @@ export WARNINGFLAGS :=	-Wall -Wno-discarded-array-qualifiers \
 	-Wno-int-conversion
 export CFLAGS := -g -O2 $(WARNINGFLAGS) -std=gnu17 -mthumb $(INCLUDES) -mcpu=arm7tdmi \
 	-march=armv4t -mno-thumb-interwork -fno-inline -fno-builtin -mlong-calls -DROM_$(ROM_CODE) \
-	-fdiagnostics-color -mtune=arm7tdmi -finline -mabi=apcs-gnu
+	-fdiagnostics-color -mtune=arm7tdmi -finline -mabi=aapcs
 # -mabi=apcs-gnu #EABI version 0
 # -mabi=aapcs #EABI version 5
 # -mthumb-interwork #el código admite llamadas ARM y Thumb, genera código más grande. usar sólo en EABI menor a 5. 
+# -mno-thumb-interwork
 export DEPFLAGS = -MT $@ -MMD -MP -MF "$(@:%.o=%.d)"
 export LDFLAGS := -T linker.ld -r $(ROM_CODE).ld 
 
-# $(BUILD)/$(SRC)/siirtc.o: CFLAGS := -mthumb-interwork
 #-------------------------------------------------------------------------------
-	
+
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 
 # Generated
@@ -86,9 +85,10 @@ ALL_OBJ := $(C_OBJ) $(S_OBJ)
 
 all: clean graphics rom
  
-rom: main$(ROM_CODE).asm $(BINARY) $(SIIRTC_OBJ)
+# rom: main$(ROM_CODE).asm $(BINARY) $(SIIRTC_OBJ)
+rom: main$(ROM_CODE).asm $(BINARY)
 	@echo "\nCreating ROM"
-	$(ARMIPS) main$(ROM_CODE).asm -definelabel insertinto $(OFFSET) -sym offsets.txt
+	$(ARMIPS) main$(ROM_CODE).asm -definelabel insertinto $(OFFSET) -sym offsets_$(ROM_CODE).txt
 
 clean:
 	rm -rf $(BINARY)
@@ -119,6 +119,8 @@ $(BUILD)/%.o: %.s
 %.gbapal: %.pal ; $(GFX) $< $@
 %.lz: % ; $(GFX) $< $@
 
+$(BUILD)/$(SRC)/siirtc.o: CFLAGS := -mthumb-interwork
+
 pngto4bpp: $(GBA4BPP_MISC) $(GBA4BPP_WALLCLOCK)
 
 gba4bpptolz: $(GBA4BPP_LZ_WALLCLOCK)
@@ -132,3 +134,5 @@ paltogbapal: $(GBAPAL)
 bintolz: $(GBA_BIN_LZ_WALLCLOCK)
 
 graphics: pngto4bpp gba4bpptolz paltogbapal bintolz
+
+
