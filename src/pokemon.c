@@ -92,7 +92,7 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
         level = GetMonData(mon, MON_DATA_LEVEL, NULL);
         friendship = GetMonData(mon, MON_DATA_FRIENDSHIP, NULL);
 
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < EVOS_PER_MON; i++)
         {
             switch (gEvolutionTable[species][i].method)
             {
@@ -154,7 +154,7 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
         }
         break;
     case EVO_MODE_TRADE:
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < EVOS_PER_MON; i++)
         {
             switch (gEvolutionTable[species][i].method)
             {
@@ -178,7 +178,7 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
         break;
     case EVO_MODE_ITEM_USE:
     case EVO_MODE_ITEM_CHECK:
-        for (i = 0; i < 5; i++)
+        for (i = 0; i < EVOS_PER_MON; i++)
         {
             if (gEvolutionTable[species][i].method == EVO_ITEM
              && gEvolutionTable[species][i].param == evolutionItem)

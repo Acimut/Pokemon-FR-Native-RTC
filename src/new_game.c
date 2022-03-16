@@ -35,7 +35,7 @@
 
 //0= usa NewGameInitData(); por defecto.
 //1= usa NewGameInitData_new();
-#define NEW_GAME_VER    1
+#define NEW_GAME_VER    0
 
 // this file's functions
 //static void ResetMiniGamesResults(void);
@@ -50,8 +50,9 @@ extern void ClearPokedexFlags(void);
 extern void ClearBattleTower(void);
 //extern void WarpToPlayersRoom(void);
 
+#if NEW_GAME_VER
 
-
+static void NewGameInitData_new(void);
 
 //static void InitPlayerTrainerId(void)
 //{
@@ -72,6 +73,8 @@ void SetDefaultOptions_new(void)
     gSaveBlock2Ptr->optionsButtonMode = OPTIONS_BUTTON_MODE_HELP;
 }
 
+#endif
+
 //static void ClearPokedexFlags(void)
 //{
 //    memset(&gSaveBlock2Ptr->pokedex.owned, 0, sizeof(gSaveBlock2Ptr->pokedex.owned));
@@ -83,13 +86,6 @@ void SetDefaultOptions_new(void)
 //    CpuFill32(0, &gSaveBlock2Ptr->battleTower, sizeof(gSaveBlock2Ptr->battleTower));
 //}
 
-static void WarpToPlayersRoom_new(void)
-{
-    SetWarpDestination(MAP_GROUP(PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(PALLET_TOWN_PLAYERS_HOUSE_2F), -1, 6, 6);
-    WarpIntoMap();
-}
-
-static void NewGameInitData_new(void);
 
 void NewGame_RTC(void)
 {
@@ -99,12 +95,18 @@ void NewGame_RTC(void)
 #endif
 #if NEW_GAME_VER
     NewGameInitData_new();
+    SetDefaultOptions_new();
 #else
     NewGameInitData();
 #endif
-    SetDefaultOptions_new();
 }
 
+#if NEW_GAME_VER
+static void WarpToPlayersRoom_new(void)
+{
+    SetWarpDestination(MAP_GROUP(PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(PALLET_TOWN_PLAYERS_HOUSE_2F), -1, 6, 6);
+    WarpIntoMap();
+}
 
 
 //08054a60 g 00000110 NewGameInitData
@@ -156,13 +158,13 @@ static void NewGameInitData_new(void)
     ResetMiniGamesResults();
     InitMEventData();
     SetAllRenewableItemFlags();
-    //WarpToPlayersRoom();
     WarpToPlayersRoom_new();
+    //WarpToPlayersRoom();
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
 }
-
+#endif
 //static void ResetMiniGamesResults(void)
 //{
 //    CpuFill16(0, &gSaveBlock2Ptr->berryCrush, sizeof(struct BerryCrush));

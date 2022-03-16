@@ -103,7 +103,7 @@ $(BINARY): $(ALL_OBJ)
 	@$(LD) $(LDFLAGS) -o $@ $^
 	
 $(BUILD)/%.o: %.c
-	@echo "\nCompiling $<"
+	@echo "Compiling $<"
 	@mkdir -p $(@D)
 	@$(CC) $(DEPFLAGS) $(CFLAGS) -E -c $< -o $(BUILD)/$*.i
 	@$(PREPROC) $(BUILD)/$*.i charmap.txt | $(CC) $(CFLAGS) -x c -o $@ -c -
