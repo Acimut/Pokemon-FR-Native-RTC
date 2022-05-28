@@ -22,6 +22,8 @@
 
 .include "hooks/BPRE/evolution_hooks.s"
 
+.include "hooks/BPRE/dns_hook.s"
+
 //------main-----------------------------------------
 //aquí se insertará todo el código.
 .align 4

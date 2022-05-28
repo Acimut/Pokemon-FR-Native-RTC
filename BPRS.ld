@@ -61,7 +61,7 @@ sErrorStatus    = 0x030074e8;
 sRtc            = 0x030074f0;
 sProbeResult    = 0x030074fc;
 sSavedIme       = 0x030074fe;
-offset_debug    = 0x03007500;
+sDnsPaletteDmaBuffer    = 0x03007500;
 
 /* main_menu.c */
 sWindowTemplate = 0x0822fd84;/*idk*/
@@ -244,6 +244,10 @@ GetCurrentWeather = 0x0807AFD0|1;
 MonKnowsMove      = 0x08125C3C|1;
 gBaseStatsPtr     = 0x080001BC;/* puntero a gBaseStats*/
 GetMonGender      = 0x0803F60C|1;
+
+
+/*  DNS*/
+    CB2_Overworld = 0x080565b4|1;
 
 
 /*  EV-IV old*/

@@ -41,6 +41,8 @@
 #include "constants/weather.h"
 #include "field_weather.h"
 #include "party_menu.h"
+#include "dns.h"
+#include "day_div.h"
 
 // Extracts the upper 16 bits of a 32-bit number
 #define HIHALF(n) (((n) & 0xFFFF0000) >> 16)
@@ -111,12 +113,12 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
             // FR/LG removed the time of day evolutions due to having no RTC.
             case EVO_FRIENDSHIP_DAY:
                 RtcCalcLocalTime(); // RTC code 
-                if (gLocalTime.hours >= 12 && gLocalTime.hours < 24 && friendship >= 220)// RTC code 
+                if (!IsLightActive() && friendship >= 220)// RTC code 
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;      // RTC code 
                 break;
             case EVO_FRIENDSHIP_NIGHT:
                 RtcCalcLocalTime();// RTC code 
-                if (gLocalTime.hours >= 0 && gLocalTime.hours < 12 && friendship >= 220)// RTC code 
+                if (IsLightActive() && friendship >= 220)// RTC code 
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;  // RTC code 
                 break;
             case EVO_LEVEL:
@@ -173,12 +175,12 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
                 break;
             case EVO_LEVEL_DAY:
                 RtcCalcLocalTime();
-                if (gLocalTime.hours >= 12 && gLocalTime.hours < 24 && gEvolutionTable[species][i].param <= level)
+                if (!IsLightActive() && gEvolutionTable[species][i].param <= level)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_LEVEL_NIGHT:
                 RtcCalcLocalTime();
-                if (gLocalTime.hours >= 0 && gLocalTime.hours < 12 && gEvolutionTable[species][i].param <= level)
+                if (IsLightActive() && gEvolutionTable[species][i].param <= level)
                 {
                     heldItem = 0;
                     SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
@@ -187,7 +189,7 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
                 break;
             case EVO_ITEM_DAY:
                 RtcCalcLocalTime();
-                if (gLocalTime.hours >= 12 && gLocalTime.hours < 24 && gEvolutionTable[species][i].param == heldItem)
+                if (!IsLightActive() && gEvolutionTable[species][i].param == heldItem)
                 {
                     heldItem = 0;
                     SetMonData(mon, MON_DATA_HELD_ITEM, &heldItem);
@@ -196,7 +198,7 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
                 break;
             case EVO_ITEM_NIGHT:
                 RtcCalcLocalTime();
-                if (gLocalTime.hours >= 0 && gLocalTime.hours < 12 && gEvolutionTable[species][i].param == heldItem)
+                if (IsLightActive() && gEvolutionTable[species][i].param == heldItem)
                     targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_LEVEL_MON:

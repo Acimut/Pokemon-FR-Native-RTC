@@ -202,3 +202,32 @@ void Overworld_ResetStateOnContinue_new(void)
 }
 
 //--------------------------------------    hooks   ---------------------------------------//
+
+
+#include "dns.h"
+#include "script.h"
+#include "task.h"
+#include "field_camera.h"
+#include "quest_log.h"
+#include "palette.h"
+#include "tileset_anims.h"
+#include "new_menu_helpers.h"
+
+
+//static
+
+void OverworldBasic(void)
+{
+    DnsApplyFilters();//DNS
+    ScriptContext2_RunScript();
+    RunTasks();
+    AnimateSprites();
+    CameraUpdate();
+    sub_8115798();
+    UpdateCameraPanning();
+    BuildOamBuffer();
+    UpdatePaletteFade();
+    UpdateTilesetAnimations();
+    DoScheduledBgTilemapCopiesToVram();
+}
+

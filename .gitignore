@@ -1,7 +1,6 @@
 #Custom
 *.ini
 build/*
-pokefirered_bin/*
 .vscode/*
 *.backup
 *.rar

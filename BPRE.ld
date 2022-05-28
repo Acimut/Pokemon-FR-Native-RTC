@@ -61,7 +61,8 @@ sErrorStatus    = 0x030074e8;
 sRtc            = 0x030074f0;
 sProbeResult    = 0x030074fc;
 sSavedIme       = 0x030074fe;
-offset_debug    = 0x03007500;
+sDnsPaletteDmaBuffer    = 0x03007500;
+gDayTime        = 0x03007900;
 
 /* main_menu.c */
 sWindowTemplate = 0x08234618;
@@ -244,6 +245,32 @@ GetCurrentWeather = 0x0807af98|1;
 MonKnowsMove      = 0x08125ac0|1;
 gBaseStatsPtr     = 0x080001BC;/* puntero a gBaseStats*/
 GetMonGender      = 0x0803f720|1;
+
+
+/*  DNS */
+gMapHeader                  = 0x02036dfc;
+CB2_Overworld               = 0x080565b4|1;
+CB2_OverworldBasic          = 0x080565a8|1;
+GetSpritePaletteTagByPaletteNum = 0x08008a20|1;
+    /*battle_main.c*/
+gBattleTypeFlags            = 0x02022b4c;
+gBattleOutcome              = 0x02023e8a;
+ResetPaletteFadeControl     = 0x08070a84|1;
+CB2_QuitPokedudeBattle      = 0x080111bc|1;
+    /*overworld.c*/
+ScriptContext2_RunScript    = 0x08069aa8|1;
+CameraUpdate                = 0x0805abb0|1;
+sub_8115798                 = 0x08115798|1;
+UpdateCameraPanning         = 0x0805ae28|1;
+UpdateTilesetAnimations     = 0x0806ffbc|1;
+    /*palette.c*/
+UpdateBlendRegisters        = 0x0807141c|1;
+gPlttBufferUnfaded          = 0x020371f8;
+gPlttBufferFaded            = 0x020375f8;
+sPlttBufferTransferPending  = 0x02037ac8;
+    /*play_time.c*/
+sPlayTimeCounterState       = 0x03000e7c;
+PlayTimeCounter_SetToMax    = 0x080548d4|1;
 
 
 /*  EV-IV old*/
