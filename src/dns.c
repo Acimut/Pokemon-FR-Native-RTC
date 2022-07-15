@@ -392,7 +392,7 @@ static bool8 IsMapDNSException();
 static bool8 IsSpritePaletteTagDnsException(u8 palNum);
 static bool8 IsOverworld();
 static bool8 IsCombat();
-//static bool8 IsLightActive();
+//static bool8 IsLightActive();// = IsNight
 
 //Dns palette buffer in EWRAM
 //ALIGNED(4) EWRAM_DATA static 
@@ -441,7 +441,7 @@ void DnsApplyFilters()
             for (colNum = 0; colNum < 16; colNum++)  //Transfers palette to buffer without filtering
                 sDnsPaletteDmaBuffer[palNum * 16 + colNum] = gPlttBufferFaded[palNum * 16 + colNum];      
 
-    if (!IsMapDNSException() && IsLightActive() && !gMain.inBattle)
+    if (!IsMapDNSException() && IsNight() && !gMain.inBattle)
         DoDnsLightning();
 }
 
@@ -498,7 +498,10 @@ static u16 GetDNSFilter()
                 return gMidnightFilters[7];
 
         case TIME_DAWN:
-            return gDawnFilters[minutes >> 1];
+            if (hour == MIDNIGHT_END_HOUR)
+                return gDawnFilters[minutes >> 1];
+            else
+                return gDayFilter;
 
         case TIME_DAY:
             return gDayFilter;
@@ -524,14 +527,14 @@ static void DoDnsLightning()
     {
         u16 colourSlot = gLightingColours[i].paletteNum * 16 + gLightingColours[i].colourNum;
         
-        if (gPaletteFade.active || gPlttBufferUnfaded[colourSlot] != 0x0000)
+        if (!gPaletteFade.active && gPlttBufferFaded[colourSlot])
         {
-            sDnsPaletteDmaBuffer[colourSlot] = gPlttBufferFaded[colourSlot];
-            gPlttBufferUnfaded[colourSlot] = gLightingColours[i].lightColour;
+            sDnsPaletteDmaBuffer[colourSlot] = gLightingColours[i].lightColour;
         }
         else
         {
-            sDnsPaletteDmaBuffer[colourSlot] = gLightingColours[i].lightColour;
+            sDnsPaletteDmaBuffer[colourSlot] = gPlttBufferFaded[colourSlot];
+            gPlttBufferUnfaded[colourSlot] = gLightingColours[i].lightColour;
         }
     }
 }
@@ -592,8 +595,7 @@ static bool8 IsCombat()
         return FALSE;
 }
 
-//IsNight = true
-bool8 IsLightActive(void)
+bool8 IsNight(void)
 {
 #if !DAY_MODE
     if (gLocalTime.hours >= LIGHTNING_START_HOUR || gLocalTime.hours < LIGHTNING_END_HOUR)

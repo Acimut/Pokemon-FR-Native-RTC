@@ -17,7 +17,7 @@ struct DnsPalExceptions {
 void DnsTransferPlttBuffer(void *src, void *dest);
 void DnsApplyFilters();
 u8 GetDnsTimeLapse(u8 hour);
-bool8 IsLightActive(void);
+bool8 IsNight(void);
 
 #endif /* GUARD_DNS_UTILS_H */
 
