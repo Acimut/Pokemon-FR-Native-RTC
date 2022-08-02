@@ -480,7 +480,7 @@ static u16 GetDNSFilter()
     u8 hour;
     u8 minutes;
 
-#if !DAY_MODE
+#if DAY_MODE == DAY_DIV_NULL
     hour = gLocalTime.hours;
     minutes = gLocalTime.minutes;
 #else
@@ -597,7 +597,7 @@ static bool8 IsCombat()
 
 bool8 IsNight(void)
 {
-#if !DAY_MODE
+#if DAY_MODE == DAY_DIV_NULL
     if (gLocalTime.hours >= LIGHTNING_START_HOUR || gLocalTime.hours < LIGHTNING_END_HOUR)
         return TRUE;
 #else

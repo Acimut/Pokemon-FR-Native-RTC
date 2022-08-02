@@ -12,7 +12,7 @@
     DAY_DIV_END
 };*/
 
-#define DAY_DIV_NULL    0
+#define DAY_DIV_NULL    24
 #define DAY_DIV_12H     12
 #define DAY_DIV_8H      8
 #define DAY_DIV_6H      6
@@ -25,7 +25,7 @@
  * así, DAY_DIV_4H divide un día en 6 días.
  * Tendrá relevancia con el DNS y las evoluciones.
 */
-#define DAY_MODE DAY_DIV_4H
+#define DAY_MODE DAY_DIV_NULL
 
 #define DAY_PER_24 (24 / DAY_MODE)
 #define MIN_PER_HOUR (60 / DAY_PER_24)
