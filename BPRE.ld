@@ -252,6 +252,7 @@ gMapHeader                  = 0x02036dfc;
 CB2_Overworld               = 0x080565b4|1;
 CB2_OverworldBasic          = 0x080565a8|1;
 GetSpritePaletteTagByPaletteNum = 0x08008a20|1;
+BattleMainCB2               = 0x08011100|1;
     /*battle_main.c*/
 gBattleTypeFlags            = 0x02022b4c;
 gBattleOutcome              = 0x02023e8a;

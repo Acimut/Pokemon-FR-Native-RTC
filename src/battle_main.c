@@ -10,7 +10,7 @@
 //static 
 extern void CB2_QuitPokedudeBattle(void);
 
-void BattleMainCB2(void)
+void BattleMainCB2_DNS(void)
 {
     AnimateSprites();
     BuildOamBuffer();

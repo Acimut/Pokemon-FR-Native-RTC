@@ -53,7 +53,7 @@ bx_r3_PlayTimeCounter_Update:
 .area 0x74, 0xFF
 BattleMainCB2_hook:
     push {lr}
-    ldr r3, =BattleMainCB2|1  
+    ldr r3, =BattleMainCB2_DNS|1  
     bl bx_r3_BattleMainCB2
     pop {pc}
 bx_r3_BattleMainCB2:
