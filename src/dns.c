@@ -384,7 +384,7 @@ const u16 gPaletteTagExceptions[] =
 
 
 //Functions
-static u16 DnsApplyFilterToColour(u16 colour, u16 filter);
+/*static */u16 DnsApplyFilterToColour(u16 colour, u16 filter);
 static u16 DnsApplyProportionalFilterToColour(u16 colour, u16 filter);
 static void DoDnsLightning();
 static u16 GetDNSFilter();
@@ -426,7 +426,7 @@ void DnsTransferPlttBuffer(void *src, void *dest)
 void DnsApplyFilters()
 {
     u8 palNum, colNum;
-    u16 colour, rgbFilter;
+    u16 rgbFilter;
     struct DnsPalExceptions palExceptionFlags;
 
     rgbFilter = GetDNSFilter();
@@ -447,7 +447,7 @@ void DnsApplyFilters()
 
 //Applies filter to a colour. Filters RGB channels are substracted from colour RGB channels.
 //Based on Andrea's DNS filtering system 
-static u16 DnsApplyFilterToColour(u16 colour, u16 filter)
+/*static */u16 DnsApplyFilterToColour(u16 colour, u16 filter)
 {
     u16 red, green, blue;
 
