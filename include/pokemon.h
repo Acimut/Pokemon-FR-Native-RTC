@@ -328,8 +328,8 @@ struct Evolution
     u16 filler;//sizeof: 8 bytes. halfword de relleno.
 };
 
-#define EVOS_PER_MON 5
-#define STAGE_EVOLUTIONS 3
+#define EVOS_PER_MON 16
+#define STAGE_EVOLUTIONS 5
 
 extern u8 gPlayerPartyCount;
 extern struct Pokemon gPlayerParty[PARTY_SIZE];

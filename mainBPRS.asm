@@ -7,6 +7,7 @@
 .include "hooks/BPRS/c2_copyright_1_Ptr.s"
 .include "hooks/BPRS/DoSoftReset_hook.s"
 
+
 .include "hooks/BPRS/Task_SetWin0BldRegsAndCheckSaveFile_ptr.s"
 .include "hooks/BPRS/title_screen_hook.s"
 .include "hooks/BPRS/GetEvolutionTargetSpecies_n_others_hook.s"
@@ -20,6 +21,8 @@
 .include "hooks/BPRS/gSpecials_ptr.s"
 
 .include "hooks/BPRS/evolution_hooks.s"
+
+.include "hooks/BPRE/dns_hook.s"
 
 //------main-----------------------------------------
 //aquí se insertará todo el código.

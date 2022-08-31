@@ -36,3 +36,34 @@ return
 '---------------
 #org @string2
 = [player]: ¡Ahora el reloj funciona\ncorrectamente!
+
+
+
+#dynamic 0x800000
+#org @main
+lockall
+checkgender
+copyvar 0x8004 LASTRESULT
+msgbox @string1 MSG_KEEPOPEN
+call @ConfigurarReloj
+pause 0x1E
+setflag 0x35C
+msgbox @string2 MSG_KEEPOPEN
+closeonkeypress
+releaseall
+end
+
+'---------------
+#org @ConfigurarReloj
+fadescreen 0x1
+special 0x9A
+waitstate
+return
+
+'---------------
+#org @string1
+= A configurar el reloj[.]
+
+'---------------
+#org @string2
+= [player]: ¡Configuración\nterminada!

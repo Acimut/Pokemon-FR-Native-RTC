@@ -9,7 +9,7 @@ include $(DEVKITARM)/base_tools
 #-------------------------------------------------------------------------------
 
 ROM_CODE ?= BPRE
-OFFSET ?= 0x08730000
+OFFSET ?= 0x093B0000
 DEBUG ?= NO # RTC_DEBUG
 export BUILD := build
 export SRC := src

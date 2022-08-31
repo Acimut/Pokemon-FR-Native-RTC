@@ -200,6 +200,7 @@ CheckPartyHasHadPokerus = 0x08043ad8|1;
 /* const */
 EventScript_ResetAllMapFlags = 0x081a6481;
 /*gEvolutionTable = 0x08259754;*/
+gEvolutionTable = 0x093C0000;
 gBitTable = 0x0825e45c;
 gDummySpriteAffineAnimTable = 0x08231cfc;
 gMenuText_Confirm = 0x084169d5;

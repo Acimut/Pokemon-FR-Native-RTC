@@ -1,6 +1,6 @@
 //pokemon.c
 .org 0x08042ec4
-.area 0x2f0, 0xFF
+.area 0x2f0//, 0xFF
 GetEvolutionTargetSpecies_hook:
     push {lr}
     lsl r1, r1, #0x18
