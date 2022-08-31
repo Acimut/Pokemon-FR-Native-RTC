@@ -232,7 +232,7 @@ u16 GetEggSpecies_new(u16 species)
     for (i = 0; i < STAGE_EVOLUTIONS; i++)
     {
         found = FALSE;
-        for (j = 1; j < NUM_SPECIES; j++)
+        for (j = 1; j < NUM_SPECIES_EXP; j++)
         {
             for (k = 0; k < EVOS_PER_MON; k++)
             {
@@ -248,7 +248,7 @@ u16 GetEggSpecies_new(u16 species)
                 break;
         }
 
-        if (j == NUM_SPECIES)
+        if (j == NUM_SPECIES_EXP)
             break;
     }
 
