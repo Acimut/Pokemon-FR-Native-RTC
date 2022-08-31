@@ -39,7 +39,7 @@ bx_r3_Overworld_ResetStateOnContinue:
 //08056644 g 00000060 CB2_NewGame
 //en overword.c se llama a esta función NewGameInitData
 //a travez de un bl en 08056652
-NewGameInitData_hook:
+NewGameInitData_hook://0x08042EFC
     push{lr}
     ldr r3, =NewGame_RTC|1
     bl bx_r3_NewGameInitData_hook
