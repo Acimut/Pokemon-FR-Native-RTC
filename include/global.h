@@ -89,7 +89,7 @@ extern u8 gStringVar4[];
 
 #define ROUND_BITS_TO_BYTES(numBits)(((numBits) / 8) + (((numBits) % 8) ? 1 : 0))
 
-#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(NUM_SPECIES))
+#define DEX_FLAGS_NO (ROUND_BITS_TO_BYTES(SPECIES_EGG)) // (ROUND_BITS_TO_BYTES(NUM_SPECIES)) //saveblock1 fix struct
 #define NUM_FLAG_BYTES (ROUND_BITS_TO_BYTES(FLAGS_COUNT))
 
 struct Coords8
