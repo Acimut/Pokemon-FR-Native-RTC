@@ -45,10 +45,10 @@ extern bool8 gDifferentSaveFile;
 extern void InitPlayerTrainerId(void);
 extern void ClearPokedexFlags(void);
 extern void ClearBattleTower(void);
-//extern void WarpToPlayersRoom(void);
+extern void WarpToPlayersRoom(void);
 
 
-static void NewGameInitData_new(void);
+void NewGameInitData_new(void);
 
 //static void InitPlayerTrainerId(void)
 //{
@@ -57,7 +57,7 @@ static void NewGameInitData_new(void);
 //}
 
 
-//static 
+
 void SetDefaultOptions_new(void)
 {
     gSaveBlock2Ptr->optionsTextSpeed = OPTIONS_TEXT_SPEED_FAST;//OPTIONS_TEXT_SPEED_MID;
@@ -77,7 +77,7 @@ void NewGame_RTC(void)
     SetDefaultOptions_new();
 }
 
-static void WarpToPlayersRoom_new(void)
+void WarpToPlayersRoom_new(void)
 {
     SetWarpDestination(MAP_GROUP(PALLET_TOWN_PLAYERS_HOUSE_2F), MAP_NUM(PALLET_TOWN_PLAYERS_HOUSE_2F), -1, 6, 6);
     WarpIntoMap();
@@ -86,7 +86,7 @@ static void WarpToPlayersRoom_new(void)
 
 //08054a60 g 00000110 NewGameInitData
 
-static void NewGameInitData_new(void)
+void NewGameInitData_new(void)
 {
     u8 rivalName[PLAYER_NAME_LENGTH + 1];
 
@@ -130,8 +130,8 @@ static void NewGameInitData_new(void)
     ResetMiniGamesResults();
     InitMEventData();
     SetAllRenewableItemFlags();
-    WarpToPlayersRoom_new();
-    //WarpToPlayersRoom();
+    //WarpToPlayersRoom_new();
+    WarpToPlayersRoom();
     ScriptContext2_RunNewScript(EventScript_ResetAllMapFlags);
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
