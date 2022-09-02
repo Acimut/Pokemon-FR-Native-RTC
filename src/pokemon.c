@@ -42,7 +42,6 @@
 #include "field_weather.h"
 #include "party_menu.h"
 #include "dns.h"
-#include "day_div.h"
 
 // Extracts the upper 16 bits of a 32-bit number
 #define HIHALF(n) (((n) & 0xFFFF0000) >> 16)
@@ -112,14 +111,14 @@ u16 GetEvolutionTargetSpecies_new(struct Pokemon *mon, u8 type, u16 evolutionIte
                 break;
             // FR/LG removed the time of day evolutions due to having no RTC.
             case EVO_FRIENDSHIP_DAY:
-                RtcCalcLocalTime(); // RTC code 
-                if (!IsNight() && friendship >= 220)// RTC code 
-                    targetSpecies = gEvolutionTable[species][i].targetSpecies;      // RTC code 
+                RtcCalcLocalTime(); 
+                if (!IsNight() && friendship >= 220)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_FRIENDSHIP_NIGHT:
-                RtcCalcLocalTime();// RTC code 
-                if (IsNight() && friendship >= 220)// RTC code 
-                    targetSpecies = gEvolutionTable[species][i].targetSpecies;  // RTC code 
+                RtcCalcLocalTime();
+                if (IsNight() && friendship >= 220)
+                    targetSpecies = gEvolutionTable[species][i].targetSpecies;
                 break;
             case EVO_LEVEL:
                 if (gEvolutionTable[species][i].param <= level)

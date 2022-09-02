@@ -1,7 +1,6 @@
 #include "global.h"
 #include "play_time.h"
 #include "rtc.h"
-#include "day_div.h"
 
 //static IWRAM 
 extern u8 sPlayTimeCounterState;

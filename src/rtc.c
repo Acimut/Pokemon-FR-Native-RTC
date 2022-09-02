@@ -290,6 +290,11 @@ void RtcCalcLocalTime(void)
 {
     RtcGetInfo(&sRtc);
     RtcCalcTimeDifference(&sRtc, &gLocalTime, &gSaveBlock2Ptr->localTimeOffset);
+    gLocalTime_copy = gLocalTime;
+
+#if DAY_MODE != DAY_TIME_DEFAULT
+    acimut_time_update(&gLocalTime_copy, &gLocalTime);
+#endif
 }
 
 void RtcInitLocalTimeOffset(s32 hour, s32 minute)
@@ -305,6 +310,7 @@ void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds)
     gLocalTime.seconds = seconds;
     RtcGetInfo(&sRtc);
     RtcCalcTimeDifference(&sRtc, &gSaveBlock2Ptr->localTimeOffset, &gLocalTime);
+    gLocalTime_copy = gLocalTime;
 }
 
 void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2)
@@ -342,4 +348,27 @@ u32 RtcGetMinuteCount(void)
 u32 RtcGetLocalDayCount(void)
 {
     return RtcGetDayCount(&sRtc);
+}
+
+u8 GetCurrentDayOfWeek(void)
+{
+    return sRtc.dayOfWeek;
+}
+
+u8 GetCurrentHour(void)
+{
+    return gLocalTime.hours;
+}
+
+u8 GetCurrentMinutes(void)
+{
+    return gLocalTime.minutes;
+}
+
+void acimut_time_update(struct Time *t_src, struct Time *t_dst)
+{
+    t_dst->seconds = (t_src->seconds % MIN_PER_HOUR) * DAY_PER_24;
+    t_dst->minutes = ((t_src->minutes % MIN_PER_HOUR) * DAY_PER_24) + (t_src->seconds / MIN_PER_HOUR);
+    t_dst->hours = (t_src->hours % DAY_MODE) * DAY_PER_24 + (t_src->minutes / MIN_PER_HOUR);
+    t_dst->days = t_src->days;
 }

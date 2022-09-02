@@ -21,31 +21,10 @@
  * 
  * It is highly recommended to read the following config*
  * options, to understand how the dns works.            *
+ * 
+ * ACIMUT: some #defines have been moved to dns.h       *
  * ******************************************************/
  
-/* Timelapses */
-enum
-{
-    TIME_MIDNIGHT,
-    TIME_DAWN,
-    TIME_DAY,
-    TIME_SUNSET,
-    TIME_NIGHTFALL,
-    TIME_NIGHT
-};
-
-/* End hours for each of the timelapses */
-#define MIDNIGHT_END_HOUR   5       //00 - 07
-#define DAWN_END_HOUR       7       //07 - 08
-#define DAY_END_HOUR        17      //08 - 19
-#define SUNSET_END_HOUR     18      //19 - 20
-#define NIGHTFALL_END_HOUR  19      //20 - 21
-#define NIGHT_END_HOUR      0       //21 - 00
-
-/* Start and end hour of the lightning system.
- * This system is generally used for building's windows. */
-#define LIGHTNING_START_HOUR    NIGHTFALL_END_HOUR
-#define LIGHTNING_END_HOUR      MIDNIGHT_END_HOUR
 
 /* This array contains the colours used for the windows or          *
  * other tiles that have to be illuminated at night.                *
@@ -472,7 +451,6 @@ static u16 DnsApplyProportionalFilterToColour(u16 colour, u16 filter)
     return RGB2(red <= 31 ? red : 0, green <= 31 ? green : 0, blue <= 31 ? blue : 0);  
 }
 
-#include "day_div.h"
 
 //returns the filter to use depending on RTC time.
 static u16 GetDNSFilter()
@@ -480,14 +458,8 @@ static u16 GetDNSFilter()
     u8 hour;
     u8 minutes;
 
-#if DAY_MODE == DAY_DIV_NULL
     hour = gLocalTime.hours;
     minutes = gLocalTime.minutes;
-#else
-    DayDiv_Update();
-    hour = gDayTime.hours;
-    minutes = gDayTime.minutes;
-#endif
 
     switch(GetDnsTimeLapse(hour))
     {
@@ -597,14 +569,14 @@ static bool8 IsCombat()
 
 bool8 IsNight(void)
 {
-#if DAY_MODE == DAY_DIV_NULL
     if (gLocalTime.hours >= LIGHTNING_START_HOUR || gLocalTime.hours < LIGHTNING_END_HOUR)
         return TRUE;
-#else
-    DayDiv_Update();
-    if (gDayTime.hours >= LIGHTNING_START_HOUR || gDayTime.hours < LIGHTNING_END_HOUR)
-        return TRUE;
-#endif
     
     return FALSE;
 }
+
+u8 GetCurrentTimeLapse(void)
+{
+    return GetDnsTimeLapse(gLocalTime.hours);
+}
+

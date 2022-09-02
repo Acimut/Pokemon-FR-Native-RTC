@@ -52,7 +52,8 @@ gSaveFileStatus = 0x030053a0;
 
 GPIOPortDirection = 0x080000c6;
 
-gLocalTime      = 0x030074a0;
+gLocalTime      = 0x030074d0;
+gLocalTime_copy = 0x030074d8;
 /* siirtc.c */
 sDummy          = 0x030074e0;
 sLocked         = 0x030074e2;
@@ -62,7 +63,7 @@ sRtc            = 0x030074f0;
 sProbeResult    = 0x030074fc;
 sSavedIme       = 0x030074fe;
 sDnsPaletteDmaBuffer    = 0x03007500;
-gDayTime        = 0x03007900;
+
 
 /* main_menu.c */
 sWindowTemplate = 0x08234618;

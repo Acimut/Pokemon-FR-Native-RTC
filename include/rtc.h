@@ -17,7 +17,8 @@
 
 #define RTC_ERR_FLAG_MASK      0x0FF0
 
-extern struct Time gLocalTime;// IWRAM [8 bytes]   /align  0x030074a0;
+extern struct Time gLocalTime;      // IWRAM [8 bytes]   /align  0x030074d0;
+extern struct Time gLocalTime_copy; // IWRAM [8 bytes]   /align  0x030074d0;
 
 void RtcDisableInterrupts(void);
 void RtcRestoreInterrupts(void);
@@ -45,5 +46,33 @@ void RtcCalcLocalTimeOffset(s32 days, s32 hours, s32 minutes, s32 seconds);
 void CalcTimeDifference(struct Time *result, struct Time *t1, struct Time *t2);
 u32 RtcGetMinuteCount(void);
 u32 RtcGetLocalDayCount(void);
+
+
+#define DAY_TIME_DEFAULT 24
+#define DAY_TIME_12H     12
+#define DAY_TIME_8H      8
+#define DAY_TIME_6H      6
+#define DAY_TIME_4H      4
+#define DAY_TIME_2H      2
+
+/**
+ * DAY_MODE:
+ * Define las horas en que se dividirá un día.
+ * Para efectos prácticos = 1 día (24h) / DAY_TIME_?H
+ * Esto quiere decir, que un día pasa en 4 horas.
+ * Así, DAY_TIME_4H divide un día en 6 días.
+ * 
+ * Afecta el DNS y las evoluciones.
+*/
+#define DAY_MODE DAY_TIME_2H
+
+#define DAY_PER_24 (24 / DAY_MODE)
+#define MIN_PER_HOUR (60 / DAY_PER_24)
+
+u8 GetCurrentDayOfWeek(void);
+u8 GetCurrentHour(void);
+u8 GetCurrentMinutes(void);
+void acimut_time_update(struct Time *t_src, struct Time *t_dst);
+
 
 #endif // GUARD_RTC_UTIL_H
